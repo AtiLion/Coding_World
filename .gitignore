@@ -1,2 +1,7 @@
-node_modules
-.env
+# Editor specific ignores
+.env/
+.idea/
+
+# NodeJS specific ignores
+node_modules/
+package-lock.json
