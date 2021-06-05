@@ -1,4 +1,4 @@
-import {PermissionResolvable} from "discord.js";
+import {Message, PermissionResolvable} from "discord.js";
 import {CommandContext} from "../types/CommandContext";
 
 
@@ -13,11 +13,15 @@ export class CommandBase {
     denyRoles: string[] = [];
     enabled: boolean = true;
     adminOnly: boolean = false;
-    modnOnly: boolean = false;
+    modOnly: boolean = false;
     guildOnly: boolean = false;
     dmOnly: boolean = false;
-
+    cooldown: number = 0;
+    category: string = "Uncategorized";
+    
     async invoke(ctx: CommandContext) {
         console.log("Not yet implemented");
     }
 }
+
+

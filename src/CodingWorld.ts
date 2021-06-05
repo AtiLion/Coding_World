@@ -4,28 +4,34 @@ import {CommandBase} from "./bases/CommandBase";
 import {EventBase} from "./bases/EventBase";
 import {MonitorBase} from "./bases/MonitorBase";
 
-
+/**
+ * @namespace CodingWorld - This namespace is the heart of the bot.
+ */
 export namespace CodingWorld {
     export const client = new Client();
+    // Collections
     export const commands = new Collection<string, CommandBase>();
     export const events = new Collection<string, EventBase>();
     export const monitors = new Collection<string, MonitorBase>();
 
     export async function loadFiles() {
-        // Load Commands First.
+
+        /* -------------------------------- Commands -------------------------------- */
+
         let categories = readdirSync(`${__dirname}/commands`);
         for(const category of categories) {
             const _commands = readdirSync(`${__dirname}/commands/${category}`).filter(d => d.endsWith(".ts"));
             for(const command of _commands) {
                 const {default: module} = await import(`./commands/${category}/${command}`);
                 const cmd = new module();
-
+                cmd.category = category;
                 commands.set(cmd.name, cmd);
                 console.log(`Command ${cmd.name} was loaded.`);
             }
         }
 
-        // Load events second.
+        /* ---------------------------------- Event --------------------------------- */
+
         categories = readdirSync(`${__dirname}/events`);
         for(const category of categories) {
             const _events = readdirSync(`${__dirname}/events/${category}`).filter(d => d.endsWith(".ts"));
@@ -38,7 +44,8 @@ export namespace CodingWorld {
             }
         }
 
-        // Load monitors last.
+        /* -------------------------------- Monitors -------------------------------- */
+
         categories = readdirSync(`${__dirname}/monitors`);
         for(const category of categories) {
             const _monitors = readdirSync(`${__dirname}/monitors/${category}`).filter(d => d.endsWith(".ts"));

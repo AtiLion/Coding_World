@@ -9,6 +9,14 @@ export namespace Command {
         }
     }
 
+    export function cooldown(ms: number) {
+        return function<T extends {new(...args: any[]): {}}> (constructor: T) {
+            return class extends constructor {
+                cooldown = ms;
+            }
+        }
+    }
+
     export function aliases(...aliases: string[]) {
         return function<T extends {new(...args: any[]): {}}> (constructor: T) {
             return class extends constructor {
