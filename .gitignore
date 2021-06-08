@@ -6,3 +6,8 @@ json.sqlite
 # NodeJS specific ignores
 node_modules/
 package-lock.json
+
+# Typescript specific ignores
+yarn.lock
+yarn-error.log
+yarn*
