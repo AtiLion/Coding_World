@@ -1,5 +1,9 @@
 import { Collection } from "discord.js";
+import fs from 'fs';
 
+function getResource(name: string): string {
+    return fs.readFileSync('src/data/Resources/' + name).toString();
+}
 
 export const resources = new Collection<string, ResourceData>();
 resources.set("discord.js", {
@@ -19,27 +23,7 @@ resources.set("discord.js", {
             url: "https://discordjs.guide"
         }
     ],
-    examples:
-        "const Discord = require('discord.js');\n" +
-        "\n"+
-        "const client = new Discord.Client();\n"+
-        "\n"+
-        "client.on('ready', () => {\n" +
-        "\tconsole.log('Ready');\n" +
-        "});\n" +
-        "\n" +
-        "client.on('message', (message) => {\n" +
-        "\tif(message.author.bot) return;\n" +
-        "\tswitch(message.content.toLowerCase().trim()) {\n" +
-        "\t\tcase '!ping'\n" +
-        "\t\t\tmessage.channel.send('Pong!');\n" +
-        "\t\tbreak;\n" +
-        "\t}\n" +
-        "})\n" +
-        "\n" +
-        "// Place your bot token in instead of 'YOUR_BOT_TOKEN'\n"+
-        "client.login('YOUR_BOT_TOKEN');"
-
+    examples: getResource('discordJs.js')
 });
 
 type ResourceData = {
